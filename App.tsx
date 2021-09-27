@@ -21,6 +21,7 @@ import { calculateDistanceFromPoints } from './src/geojson/geojson';
 import firebase from 'firebase'
 
 LogBox.ignoreLogs(['Setting a timer for a long period of time'])
+LogBox.ignoreLogs(['Mapbox warning, eglSwapBuffer error: 12301'])
 // firebase.firestore.setLogLevel('debug')
 MapboxGL.setAccessToken('pk.eyJ1IjoiampkbHVjaWFubyIsImEiOiJja3JkZ3gzZjk1Y3J3MzFvNmJ5ZG5iZ2RmIn0.X7IWxzKNS-hLmwJ__CaMCQ')
 

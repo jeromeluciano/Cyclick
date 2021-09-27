@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { Image, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { auth } from "../api/firebase";
+import { colors } from "../constants/colors";
 import { RootState } from "../features/store";
 import NavigationStackScreen from "./navigation-stack-screen";
 import AccountScreen from "./tabs/account-screen";
@@ -19,13 +20,17 @@ const RootTabScreen = () => {
   const user = useSelector((state: RootState) => state.auth.user);
 
   return (
-    <Tab.Navigator screenOptions={{
-      header: () => null,
-      tabBarLabel: () => null
-    }}>
-      <Tab.Screen name="explore" component={ExploreScreen} options={{
+    <Tab.Navigator
+      screenOptions={{
+        header: () => null,
+        tabBarLabel: () => null,
+        tabBarActiveTintColor: colors.primary,
+        
+      }}
+    >
+      {/* <Tab.Screen name="explore" component={ExploreScreen} options={{
         tabBarIcon: ({ color, size }) => <Ionicons name="map-sharp" size={size} color={color} />
-      }}/>
+      }}/> */}
       <Tab.Screen name="navigation" component={NavigationStackScreen} options={{
         tabBarIcon: ({ color, size }) => <Feather name="navigation" size={size} color={color} />
       }}/>

@@ -1,5 +1,6 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { authSlice } from "./auth/auth-slice";
+import { markerSlice } from "./navigation/markers-slice";
 import { navigationSlice } from "./navigation/navigation-slice";
 import { trackSlice } from "./tracks/track-slice";
 
@@ -7,7 +8,8 @@ export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     track: trackSlice.reducer,
-    navigation: navigationSlice.reducer
+    navigation: navigationSlice.reducer,
+    marker: markerSlice.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: false

@@ -87,7 +87,10 @@ export const navigationSlice = createSlice({
     resetNavigation: (state) => {
       state.endpoint = null
       state.shape = null
-    }
+    },
+    // removeMarker: (state) => {
+    //   state.endpoint = null
+    // }
   },
   extraReducers: (builder) => {
     builder

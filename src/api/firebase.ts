@@ -9,11 +9,14 @@ const firebaseConfig = {
   appId: "1:798342004914:web:e23e7c58d6041c456249ab"
 };
 
-
+// firebase.firestore().settings({ experimentalForceLongPolling: true });
 
 export const app = firebase.initializeApp(firebaseConfig)
-
 
 export const auth = firebase.auth()
 
 export const firestore = firebase.firestore()
+
+firestore.settings({
+  experimentalForceLongPolling: true
+})

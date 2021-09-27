@@ -19,8 +19,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { closeSearchBar, fetchDirections, resetNavigation, setEndpoint, setStartpoint, startNavigating, stopNavigating } from '../../features/navigation/navigation-slice'
 import { RootState } from '../../features/store'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons'
 import MapMarkers from '../../components/Navigation/MapMarkers'
+import { DefaultTheme } from 'react-native-paper'
 
 const NavigationScreen = () => {
   const { top } = useSafeAreaInsets()
@@ -34,16 +35,20 @@ const NavigationScreen = () => {
   const { showActionSheetWithOptions } = useActionSheet()
 
   const openNavigationSheet = () => {
-    const options = ['Start Navigation', 'Cancel']
+    const options = ['Delete', 'Save', 'Cancel'];
+    const destructiveButtonIndex = 0;
+    const cancelButtonIndex = 2;
 
     showActionSheetWithOptions(
       {
-        options
+        options,
+        cancelButtonIndex,
+        destructiveButtonIndex,
       },
-      (buttonIndex) => {
-
-      }
-    )
+      buttonIndex => {
+        // Do something here depending on the button index selected
+      },
+    );
   }
 
   const flyToCoordinates = (location: any) => {
@@ -57,13 +62,18 @@ const NavigationScreen = () => {
     if (!navigation.isNavigating) {
       dispatch(startNavigating())
     } else {
-      dispatch(stopNavigating())
       dispatch(resetNavigation())
+      dispatch(stopNavigating())
+      mapCameraRef.current?.zoomTo(12)
     }
   }
 
-
-
+  const clearMarker = () => {
+    if (navigation.endpoint) {
+      dispatch(resetNavigation())
+    }
+  }
+  
 
   // if (!startPoint) {
   //   return <AppLoader/>
@@ -89,10 +99,9 @@ const NavigationScreen = () => {
             }
           })
         })
-        
       }
     })()
-  }, [])
+  }, [navigation.isNavigating])
 
 
   if (!navigation.startpoint) {
@@ -123,13 +132,14 @@ const NavigationScreen = () => {
               // followPitch={navigation.isNavigating}
               // followHeading={navigation.isNavigating}
               followUserMode={'compass'}
-              followZoomLevel={15}
+              followZoomLevel={17}
+              animationMode={'flyTo'}
             />
             <MapboxGL.UserLocation renderMode={'native'} showsUserHeadingIndicator androidRenderMode={!navigation.isNavigating ? 'normal': 'compass'}/>
             {
               navigation.endpoint ?
                 <MapboxGL.PointAnnotation id={'endpoint-marker'} coordinate={navigation.endpoint} onSelected={() => {
-                  console.log('dispatch fetch', navigation.shape)
+                  // console.log('dispatch fetch', navigation.shape)
                   // dispatch(fetchDirections())
                   openNavigationSheet()
                 }}/> : null
@@ -143,6 +153,9 @@ const NavigationScreen = () => {
                     lineWidth: 5,
                     lineColor: colors.primary,
                     lineJoin: 'round',
+                    // lineGapWidth: 1,
+                    lineOpacity: 0.9
+                    // lineBlurTransition: 5
                   }}/>
                 </MapboxGL.ShapeSource>
               ): null
@@ -156,17 +169,31 @@ const NavigationScreen = () => {
             // console.log('flying to', item.center)
             console.log(item)
           }}/>
+          
+          {
+            // start navigation button
+            navigation.shape ? 
+            <TouchableOpacity style={styles.startNavigationBtn} onPress={toggleNavigating}>
+            {
+              !navigation.isNavigating ?
+                <MaterialCommunityIcons name="navigation" size={24} color={colors.primary} />:
+                <Entypo name="cross" size={24} color="red" />
+            }
+            </TouchableOpacity>: null
+          }
 
           {
-            navigation.shape ?
-            <TouchableOpacity style={styles.startNavigationBtn} onPress={toggleNavigating}>
+            // clear marker button
+            navigation.endpoint && !navigation.isNavigating ?
+            <TouchableOpacity style={styles.startNavigationBtn} onPress={clearMarker}>
               {
-                !navigation.isNavigating ?
-                  <MaterialCommunityIcons name="map-marker-distance" size={24} color={colors.primary} />:
+                // !navigation.isNavigating ?
+                  // <MaterialCommunityIcons name="map-marker-distance" size={24} color={colors.primary} />:
                   <MaterialCommunityIcons name="map-marker-remove" size={24} color="red" />
               }
             </TouchableOpacity>: null
           }
+          
         </View>
       </View>
     
@@ -184,7 +211,7 @@ const styles = StyleSheet.create({
   startNavigationBtn: {
     alignSelf: 'flex-end',
     marginHorizontal: 15,
-    marginVertical: 5,
+    marginVertical: 10,
     backgroundColor: 'white',
     paddingVertical: 10,
     paddingHorizontal: 15,
@@ -196,7 +223,5 @@ const styles = StyleSheet.create({
     elevation: 6
   }
 })
-
-
 
 export default connectActionSheet(NavigationScreen)

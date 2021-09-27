@@ -12,6 +12,7 @@
     "@expo/vector-icons": "^12.0.0",
     "@mapbox/mapbox-gl-geocoder": "^4.7.4",
     "@mapbox/mapbox-sdk": "^0.13.2",
+    "@react-native-firebase/app": "^12.8.0",
     "@react-native-mapbox-gl/maps": "^8.3.0",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",

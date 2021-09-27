@@ -32,7 +32,6 @@ const TrackRecordingScreen = () => {
 
   const { showActionSheetWithOptions } = useActionSheet()
 
-  const linestring = createLineString()
 
   const openActionSheet = () => {
     const pauseButtonIndex = 0;

@@ -18,15 +18,19 @@ import BackgroundTimer from 'react-native-background-timer'
 import moment from 'moment'
 import { calculateDistanceKm, createLineString } from '../../geojson/LineString'
 import { hasServicesEnabledAsync, enableNetworkProviderAsync } from 'expo-location'
+import { setNetworkStatus } from '../app/permission-slice'
 MapboxGL.setAccessToken('pk.eyJ1IjoiampkbHVjaWFubyIsImEiOiJja3JkZ3gzZjk1Y3J3MzFvNmJ5ZG5iZ2RmIn0.X7IWxzKNS-hLmwJ__CaMCQ')
 
 const TrackRecordingScreen = () => {
   const { top } = useSafeAreaInsets()
   const navigation = useNavigation()
-  const [permission, setPermission] = useState<boolean>(false);
+  const [mapboxPermission, setMapboxPermission] = useState<boolean>(false);
   const [time, setTime] = useState<string>('0:00:00')
   const [startRecordingOnBackground, stopRecordingOnBackground] = useTrackUserLocationOnBackground()
+  // track slice
   const track = useSelector((state: RootState) => state.track)
+  // permission slice
+  const permission = useSelector((state: RootState) => state.permission)
   const dispatch = useDispatch()
   const [locationServicesEnabled, setLocationServicesEnabled] = useState<boolean>(false)
 
@@ -125,10 +129,10 @@ const TrackRecordingScreen = () => {
     if (!isLocationServiceEnabled) {
       enableNetworkProviderAsync()
         .then(() => {
-          setLocationServicesEnabled(true)
+          dispatch(setNetworkStatus(true))
         })
         .catch(() => {
-          setLocationServicesEnabled(false)
+          dispatch(setNetworkStatus(false))
         })
     }
   }
@@ -142,10 +146,10 @@ const TrackRecordingScreen = () => {
       }
     })()
 
-    if (permission) return;
+    if (mapboxPermission) return;
     MapboxGL.requestAndroidLocationPermissions()
-      .then(status => setPermission(status))
-  }, [locationServicesEnabled])
+      .then(status => setMapboxPermission(status))
+  }, [permission.networkStatus])
 
   return (
     <View style={{ marginTop: top }}>
@@ -175,9 +179,22 @@ const TrackRecordingScreen = () => {
       {
         locationServicesEnabled ?
         <MapboxGL.MapView style={styles.map}>
-          <MapboxGL.Camera followUserLocation={true} followZoomLevel={15} />
+          {
+            track.features ?
+            <MapboxGL.ShapeSource shape={track.features} id="track-polyline-source">
+              <MapboxGL.LineLayer 
+                sourceID="track-polyline-source" 
+                id="track-route-polyline"
+                style={{
+                  lineWidth: 5,
+                  lineCap: 'round'
+                }}
+              />
+            </MapboxGL.ShapeSource>: null
+          }
+          <MapboxGL.Camera  followUserMode={'normal'} followUserLocation={track.recording == 'recording'} followZoomLevel={12} />
           <MapboxGL.UserLocation animated={true} renderMode={'native'} showsUserHeadingIndicator={true} />
-        </MapboxGL.MapView>:
+        </MapboxGL.MapView> :
         <View style={{ 
           height: Dimensions.get('window').height * .70,
           justifyContent: 'center',

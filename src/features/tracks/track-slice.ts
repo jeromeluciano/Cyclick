@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { featureCollection, lineString, point } from '@turf/helpers'
 import { LocationObject } from 'expo-location'
 import React from 'react'
 
@@ -6,7 +7,8 @@ export type TrackState = {
   name: string,
   recording: RecordingState,
   coordinates: LocationObject[],
-  duration: number
+  duration: number,
+  features: any
 }
 
 export type RecordingState = "idle" | "recording" | "pause"
@@ -15,7 +17,8 @@ const initialState: TrackState = {
   name: '',
   recording: "idle",
   coordinates: [],
-  duration: 0
+  duration: 0,
+  features: null
 }
 
 export const trackSlice = createSlice({
@@ -41,6 +44,12 @@ export const trackSlice = createSlice({
       state.coordinates = [],
       state.recording = "idle",
       state.duration = 0
+    },
+    recalculateFeatures: (state) => {
+      if (state.coordinates.length < 2) return;
+      const coordinates = state.coordinates.map((coord) => [coord.coords.longitude, coord.coords.latitude])
+      const line = lineString(coordinates)
+      state.features = line
     }
   }
 })
@@ -52,5 +61,6 @@ export const {
   startRecording,
   stopRecording,
   incrementDuration,
-  pauseRecording
+  pauseRecording,
+  recalculateFeatures
 } = trackSlice.actions  

@@ -15,7 +15,7 @@ import MapboxGL from '@react-native-mapbox-gl/maps';
 import { defineTask } from 'expo-task-manager';
 import { RECORD_LOCATION_ON_BACKGROUND } from './src/hooks/useTrackUserLocationOnBackground';
 import { LocationObject } from 'expo-location';
-import { addLocation } from './src/features/tracks/track-slice';
+import { addLocation, recalculateFeatures } from './src/features/tracks/track-slice';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { calculateDistanceFromPoints } from './src/geojson/geojson';
 import firebase from 'firebase'
@@ -65,6 +65,7 @@ defineTask(RECORD_LOCATION_ON_BACKGROUND, ({ data, error }) => {
 
   if (track.recording) {
     store.dispatch(addLocation(location))
+    store.dispatch(recalculateFeatures())
     console.log(store.getState().track.coordinates.length)
   }
   

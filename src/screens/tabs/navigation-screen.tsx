@@ -28,7 +28,11 @@ const NavigationScreen = () => {
   const mapCameraRef = useRef<MapboxGL.Camera | null>(null)
   const [routes, setRoutes] = useState<any | null>(null)
   const [line, setLine] = useState<any>(null)
+  // navigation slice
   const navigation = useSelector((state: RootState) => state.navigation)
+  // permission slice
+  const permission = useSelector((state: RootState) => state.permission)
+  // dispatcher
   const dispatch = useDispatch()
   const mapRef = useRef<MapboxGL.MapView | null>(null);
 
@@ -101,7 +105,7 @@ const NavigationScreen = () => {
         })
       }
     })()
-  }, [navigation.isNavigating])
+  }, [navigation.isNavigating, permission.networkStatus])
 
 
   if (!navigation.startpoint) {
@@ -129,8 +133,6 @@ const NavigationScreen = () => {
               centerCoordinate={navigation.startpoint} 
               zoomLevel={10}
               followUserLocation={navigation.isNavigating}
-              // followPitch={navigation.isNavigating}
-              // followHeading={navigation.isNavigating}
               followUserMode={'compass'}
               followZoomLevel={17}
               animationMode={'flyTo'}

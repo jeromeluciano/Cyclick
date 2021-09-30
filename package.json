@@ -31,6 +31,7 @@
     "expo-task-manager": "~9.2.2",
     "expo-updates": "~0.8.1",
     "firebase": "8.2.3",
+    "global": "^4.4.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "momentjs": "^2.0.0",
@@ -47,7 +48,8 @@
     "react-native-screens": "~3.4.0",
     "react-native-unimodules": "~0.14.5",
     "react-native-web": "~0.13.12",
-    "react-redux": "^7.2.5"
+    "react-redux": "^7.2.5",
+    "turtle-cli": "^0.22.5"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

@@ -12,6 +12,7 @@ import { RootState } from '../../features/store'
 import { FontAwesome } from '@expo/vector-icons'
 import { openSearchBar } from '../../features/navigation/navigation-slice'
 import { colors } from '../../constants/colors'
+import { Box, Pressable } from 'native-base'
 
 //@ts-ignore
 const DismissKeyboard = ({ children }) => (
@@ -53,23 +54,15 @@ const SearchPlacesInput = ({ handleOnPress }) => {
     <DismissKeyboard >
       <View style={styles.container}>
         {
-          navigation.searchBarState ?
-            <TextInput 
-              style={{ ...styles.input, opacity: searchState ? 1 : 0.8 }} 
-              onChangeText={handleTextChange} 
-              onFocus={(e) => {
-                setSearchState(true)
-                console.log('focus')
-              }}
-              onBlur={(e) => {
-                setSearchState(false)
-                console.log('blur')
-              }}
-              placeholder={'Search'}
-            />: 
-            <TouchableOpacity style={styles.searchButton} onPress={() => dispatch(openSearchBar())}>
-              <FontAwesome name="search" size={24} color={colors.primary} />
-            </TouchableOpacity>
+          <Pressable opacity={navigation.searchBarState ? 0 : 1} onPress={() => dispatch(openSearchBar())} >
+            {({ isPressed }) => {
+              return (
+                <Box bg="white" p="3" borderTopRadius="5">
+                  <FontAwesome name="search" size={24} color="black" />
+                </Box>
+              )
+            }}
+          </Pressable>
         }
         {
           result && navigation.searchBarState ? 

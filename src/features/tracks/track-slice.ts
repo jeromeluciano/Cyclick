@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { featureCollection, lineString, point } from '@turf/helpers'
 import { LocationObject } from 'expo-location'
 import React from 'react'
@@ -20,6 +20,7 @@ const initialState: TrackState = {
   duration: 0,
   features: null
 }
+
 
 export const trackSlice = createSlice({
   name: 'tracks',
@@ -44,6 +45,7 @@ export const trackSlice = createSlice({
       state.coordinates = [],
       state.recording = "idle",
       state.duration = 0
+      state.features = null
     },
     recalculateFeatures: (state) => {
       if (state.coordinates.length < 2) return;

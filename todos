@@ -1,0 +1,14 @@
+todos:
+  1. forgot password [x]
+  2. show/hide password [x]
+  3. tracks show something when no post (there are no tracks to show right now.) [x]
+  4. search bar state hide when location is selected [x]
+  
+
+  bugs:
+    add marker
+      - form don't reset on submitted form. [x]
+
+    add bike lane 
+      - form dont reset on submitted form both (description, title) [x]
+

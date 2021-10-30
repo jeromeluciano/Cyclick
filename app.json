@@ -4,9 +4,9 @@
     "slug": "CyClick",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/cyclick-logo.jpg",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/cyclick-logo.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,10 +21,6 @@
       "bundleIdentifier": "com.jeromejerome.CyClick"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
       "package": "com.jeromejerome.CyClick",
       "permissions": ["ACCESS_BACKGROUND_LOCATION", "ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
     },
@@ -33,7 +29,7 @@
     },
     "plugins": ["@react-native-mapbox-gl/maps"],
     "facebookScheme": "fb123456",
-    "facebookAppId": "874246013199070",
+    "facebookAppId": "5999614916775320",
     "facebookDisplayName": "CyClick"
   }
 }

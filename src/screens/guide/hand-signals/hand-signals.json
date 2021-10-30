@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Giveway signal",
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/cyclick-6b95d.appspot.com/o/Hand%20Signals%2FGiveAwaySignal.gif?alt=media&token=23fc91fa-01aa-4ea4-91ab-a0439dff2cab",
+      "filename": "GiveAwaySignal.gif"
+    },
+    {
+      "id": 2,
+      "title": "Left turn signal",
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/cyclick-6b95d.appspot.com/o/Hand%20Signals%2FLeftTurnSignal.gif?alt=media&token=171b0fe1-b1b2-4d71-87d8-8f952456c91a ",
+      "filename": "LeftTurnSignal.gif"
+    },
+    {
+      "id": 3,
+      "title": "Right turn signal",
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/cyclick-6b95d.appspot.com/o/Hand%20Signals%2FSignForRightTurnSignal.gif?alt=media&token=07c0f236-0ed7-43d7-8a29-7977656db514",
+      "filename": "SignForRightTurnSignal.gif"
+    },
+    {
+      "id": 4,
+      "title": "Sign for pointing out hazards",
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/cyclick-6b95d.appspot.com/o/Hand%20Signals%2FSignForPointingOutHazards.gif?alt=media&token=199974d7-3548-496b-b24d-ac0e76f4448e",
+      "filename": "SignForPointingOutHazards.gif"
+    },
+    {
+      "id": 5,
+      "title": "Sign for stopping signal",
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/cyclick-6b95d.appspot.com/o/Hand%20Signals%2FSignForStoppingSignal.gif?alt=media&token=1b897053-3f82-4d81-890d-a1bdd1043bcc",
+      "filename": "SignForStoppingSignal.gif"
+    },
+  ]
+}

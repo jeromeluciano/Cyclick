@@ -29,3 +29,14 @@ export const calculateDistanceKm = (coordinates: LocationObject[]) => {
 
   return length(linestring, { units: 'kilometers' }).toPrecision(1)
 }
+
+export const isRecordingMorethanFiveMeters = (coordinates: any) => {
+  if (coordinates.length < 3) return;
+  coordinates = [...coordinates].sort((a, b) => (a.timestamp - b.timestamp))
+  console.log(coordinates)
+  const points = coordinates.map((point) => [point.coords.longitude, point.coords.latitude])
+
+  const linestring = lineString(points)
+
+  return length(linestring, { units: 'kilometers' }) >= 0.5
+}

@@ -1,6 +1,6 @@
 import MapboxGL from '@react-native-mapbox-gl/maps'
 import React from 'react'
-import { Image } from 'react-native'
+import { Image, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchApprovedMarkers } from '../../features/navigation/markers-slice'
 import { RootState } from '../../features/store'
@@ -52,15 +52,22 @@ const MapMarkers = () => {
             ['==', 'type', 'bike_shop']
           ]} 
         >
-          <MapboxGL.SymbolLayer 
-            filter={[
-              'all',
-              ['==', 'type', 'bike_shop']
-            ]} 
-            id="bike-markers" 
-            style={styles.bikeShop}
-            minZoomLevel={12}
-          />
+            <MapboxGL.SymbolLayer 
+              filter={[
+                'all',
+                ['==', 'type', 'bike_shop']
+              ]} 
+              id="bike-markers" 
+              style={{...styles.bikeShop, textField: ['get', 'description'], textSize: 10, textColor: '#164e63', textTranslate: [0, 25] }}
+              minZoomLevel={14}
+            />
+            {/* <MapboxGL.Callout
+              title={"testing lang"}
+              containerStyle={{ flex: 1, backgroundColor: '#fff' }}
+            /> */}
+            <View>
+              <Text>Test lang po</Text>
+            </View>
         </MapboxGL.ShapeSource>: null
     }
 
@@ -83,7 +90,7 @@ const MapMarkers = () => {
             ]} 
             id="bikeRepair-markers" 
             style={styles.bikeRepair}
-            minZoomLevel={12}
+            minZoomLevel={14}
           />
         </MapboxGL.ShapeSource>: null
     }
@@ -106,7 +113,7 @@ const MapMarkers = () => {
             ]} 
             id="waitingShed-markers" 
             style={styles.bikeRepair}
-            minZoomLevel={12}
+            minZoomLevel={14}
           />
         </MapboxGL.ShapeSource>: null
     }

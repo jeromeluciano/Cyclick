@@ -10,7 +10,7 @@ export type MarkerType = {
 }
 
 export type MarkerState = {
-  markers: any [] | null | undefined,
+  markers: any,
   currentRequestId: string | undefined,
   loading: string,
   error: any,
@@ -34,12 +34,14 @@ export const fetchApprovedMarkers = createAsyncThunk(
       markers.forEach((marker) => {
         const feature = point([marker.coordinate.longitude, marker.coordinate.latitude], {
           type: marker.type,
-          name: marker.name
+          name: marker.name,
+          description: marker.description
         })
         transformedFeature.push(feature)
       })
 
       const featureCollections = featureCollection(transformedFeature)
+      console.log('fetch markers from firebase')
 
       return featureCollections
       // return markers

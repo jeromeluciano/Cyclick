@@ -1,149 +1,212 @@
-import { Ionicons } from '@expo/vector-icons'
-import MapboxGL from '@react-native-mapbox-gl/maps'
-import { useNavigation } from '@react-navigation/core'
-import { lineString } from '@turf/helpers'
+import MapboxGL from '@react-native-mapbox-gl/maps';
+import { useNavigation } from '@react-navigation/core';
+import bbox from '@turf/bbox';
+import { lineString } from '@turf/helpers';
+import moment from 'moment';
+import { 
+  Box, 
+  HStack, 
+  TextArea, 
+  Text, 
+  Divider, 
+  Pressable, 
+  ScrollView,
+  Spinner,
+  Toast
+} from 'native-base';
+
 import React, {
-  useRef,
   useEffect,
-  useCallback
+  useRef,
+  useCallback,
+  useState
 } from 'react'
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useSelector } from 'react-redux'
-import { colors } from '../../constants/colors'
-import { RootState } from '../../features/store'
-import { calculateDistanceFromPoints } from '../../geojson/geojson'
 
-const TrackRecordingFormScreen = () => {
+import { Dimensions, StyleSheet } from 'react-native';
+import _BackgroundTimer from 'react-native-background-timer';
+import { useDispatch, useSelector } from 'react-redux';
+import { firestore } from '../../api/firebase';
+import { colors } from '../../constants/colors';
+import { RootState } from '../../features/store';
+import { reset } from '../../features/tracks/track-slice';
+import useTrackUserLocationOnBackground from '../../hooks/useTrackUserLocationOnBackground';
+
+const TrackRecordingFormScreen = ({ route }) => {
+  const data = route.params
+
+  const track = useSelector((state: RootState) => state.track)
+
+  const user = useSelector((state: RootState) => state.auth.user)
+
+  const mapCameraRef = useRef<MapboxGL.Camera>(null)
+
   const navigation = useNavigation()
-  const { top } = useSafeAreaInsets()
-  const cameraRef = useRef<MapboxGL.Camera | null>(null);
-  // const coordinates = useSelector((state: RootState) => state.track.coordinates)
-  // mock coordinates
-  const coordinates = [
-    [
-      120.941589,
-      14.665011
-    ],
-    [
-      120.941609,
-      14.664976
-    ],
-    [
-      120.941829,
-      14.664602
-    ],
-    [
-      120.941877,
-      14.664522
-    ],
-    [
-      120.942049,
-      14.664229
-    ],
-    [
-      120.942074,
-      14.664187
-    ],
-    [
-      120.942283,
-      14.663832
-    ],
-    [
-      120.942389,
-      14.663653
-    ]
-  ]
 
-  const goBack = () => {
-    if (navigation.canGoBack()) {
-      navigation.goBack()
-    }
+  const [description, setDescription] = useState('');
+
+  const [loading, setLoading] = useState(false)
+
+  const [startRecordingLocation, stopRecordingLocation] = useTrackUserLocationOnBackground()
+
+  const dispatch = useDispatch()
+
+  const handleChangeDescription = (text: string) => {
+    setDescription(text)
   }
 
-  const fitCameraFromBounds = useCallback(() => {
-    if (cameraRef) {
-      if (calculateDistanceFromPoints(coordinates)) {
-        
-        // cameraRef.current?.fitBounds(leftCoord, rightCoord, 10)
-        // console.log('mapbox')
-      }
-    }
-  }, [coordinates.length])
+  const mapOnLine = useCallback(() => {
+    if (mapCameraRef.current) {
+      const _lineString = lineString(
+        track.coordinates.map(location => [location.coords.longitude, location.coords.latitude])
+      )
+      const [x1, y1, x2, y2] = bbox(_lineString)
 
-  const generateGeojsonPolyline = () => {
-    const ls = lineString(coordinates)
-    return ls
-  }
+      mapCameraRef.current.fitBounds(
+        [x1, y1],
+        [x2, y2],
+        100
+      )
+    }
+  }, [track.coordinates])
+
+  const saveTrackToFirestore = useCallback(() => {
+    const instance = {
+      coordinates: track.coordinates.map(location => ({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude
+      })),
+      uid: user?.uid,
+      description: description,
+      distanceKm: data.distanceKm,
+      duration: data.duration,
+      created_at: new Date().getTime()
+    }
+    setLoading(true)
+    firestore
+      .collection('tracks')
+      .add(instance)
+      .then(track => {
+        if (track.id) {
+          stopRecordingLocation()
+          dispatch(reset())
+          _BackgroundTimer.stopBackgroundTimer()
+          _BackgroundTimer.stop()
+          setDescription('')
+          navigation.navigate('recording')
+          Toast.show({
+            description: 'Track succesfully saved.',
+            marginBottom: Dimensions.get('window').height / 2
+          })
+        }
+        setLoading(false)
+      })
+      .catch(err => {
+        setLoading(false)
+      })
+
+  }, [description])
+
+  // console.log(coordinates)
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'Track Recording Form'
+    })
+    console.log(data)
+    // console.log(track.coordinates.map(coordinate => [coordinate.coords.longitude, coordinate.coords.latitude]))
+  }, [])
 
   return (
-    <View style={{ marginTop: top }}>
-      <View> 
-        <View style={styles.header}>
-          <View style={styles.headerLeftItem}>
-            <TouchableOpacity onPress={goBack}>
-              <Ionicons name="arrow-back" size={35} color="white" />
-            </TouchableOpacity>
-            <Text style={{
-              alignSelf: 'center',
-              color: 'white',
-              fontFamily: 'Inter-Medium',
-              fontSize: 15,
-              marginLeft: 10
-            }}>Track Form</Text>
-          </View>
-        </View>
-
+    <ScrollView>
+      <Box m="3" borderRadius="xl" overflow="hidden">
         <MapboxGL.MapView 
-          style={styles.map}
+          style={styles.map} 
+          compassEnabled={false}
+          onDidFinishLoadingMap={() => {
+            mapOnLine()
+          }}
         >
           <MapboxGL.Camera 
-            ref={(camera) => {
-              // const leftCoord = [coordinates[0].coords.longitude, coordinates[0].coords.latitude]
-              // const rightCoord = [coordinates[coordinates.length - 1].coords.longitude, coordinates[coordinates.length - 1].coords.latitude]
-              camera?.fitBounds(coordinates[0], coordinates[coordinates.length - 1])
-              generateGeojsonPolyline()
-              // console.log(leftCoord, rightCoord)
-            }}
+            ref={mapCameraRef}
           />
 
-          <MapboxGL.ShapeSource 
-            id={"track-source"}
-            shape={generateGeojsonPolyline()}
-          >
-            <MapboxGL.LineLayer id={"track-line"} sourceID={"track-source"} style={{
-              lineColor: colors.primary,
-              lineWidth: 8,
-              lineOpacity: 0.8,
-              lineJoin: 'round',
-              lineCap: 'round'
-            }}/>
-          </MapboxGL.ShapeSource>
+          {
+            track.coordinates.length > 1 ?
+            <MapboxGL.ShapeSource 
+              id="line-source"
+              shape={{
+                type: 'MultiPoint',
+                coordinates: track.coordinates.map(coordinate => [coordinate.coords.longitude, coordinate.coords.latitude])
+              }}
+            >
+              <MapboxGL.LineLayer 
+                id="line-marker"
+                style={{
+                  lineColor: colors.primary,
+                  lineWidth: 4,
+                  lineJoin: 'round'
+                }}
+              />
+            </MapboxGL.ShapeSource> : null
+          }
         </MapboxGL.MapView>
-      </View>
-    </View>
+      </Box>
+
+      <Box mx="3" my="1" bg="white" borderRadius="15">
+        <HStack justifyContent="space-between">
+          <Box w="1/2" p="2" >
+            <Text fontSize="xs" color="gray.500" textAlign="center">Duration</Text>
+            <Text fontSize="4xl" color="gray.900" fontWeight="bold" textAlign="center">
+              {
+                moment
+                .utc (
+                  moment
+                    .duration(data.duration, 'seconds')
+                    .asMilliseconds()
+                ).format('HH:mm:ss')
+              }
+            </Text>
+          </Box>
+          <Divider orientation="vertical"/>
+          <Box w="1/2" p="2">
+            <Text fontSize="xs" color="gray.500" textAlign="center">Distance (km)</Text>
+            <Text fontSize="4xl" color="gray.900" fontWeight="bold" textAlign="center">
+              { data.distanceKm.toPrecision(1) } 
+            </Text>
+          </Box>
+        </HStack>
+      </Box>
+      
+      <Box bg="white" mx="3" my="2" borderRadius="15">
+        <Box p="3" borderRadius="15" overflow="hidden">
+          <TextArea onChangeText={handleChangeDescription} borderRadius="5" borderColor="gray.300" placeholder="Description" px="4"></TextArea>
+        </Box>
+      </Box>
+
+        <Pressable mx="3" my="1" onPress={saveTrackToFirestore}>
+          {({ isPressed }) => {
+            return (
+              <Box textAlign="center" bg={isPressed ? colors.secondary : colors.primary} borderRadius="15" p="4">
+                {
+                  loading ?
+                  <Spinner size="sm" />
+                  : <Text color="white" textAlign="center"  fontWeight="bold">
+                    Save
+                  </Text> 
+                }
+              </Box>
+            )
+          }}
+        </Pressable>
+
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    backgroundColor: colors.primary,
-    padding: 8,
-    justifyContent: 'space-between'
-  },
-  headerLeftItem: {
-    flexDirection: 'row',
-    // alignSelf: 'center',
-    // alignContent: 'center',
-  },
-  textWhite: {
-    color: '#fff'
-  },
   map: {
-    height: Dimensions.get('window').height * 0.85,
-    width: '100%'
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height * .50
   }
 })
 
-export default TrackRecordingFormScreen
+export default TrackRecordingFormScreen;

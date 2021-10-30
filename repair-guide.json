@@ -1,0 +1,37 @@
+{
+  "articles": [
+    {
+      "id": 1,
+      "title": "Adjusting Bike Brakes Method 1/2 (Adjusting Break Pads)",
+      "keywords": ["Brakes", "Tips"],
+      "multiline": [
+        "Check your brake pads before you make any adjustments. The brake pads are the pads that clamp down on the front tire of your bike when you pull the brake lever. If the brake pads are worn down past the line labeled “wear line,” you’ll need to replace them before you make adjustments to your brakes. If the wear lines on your brake pads aren't labeled, they should be marked by grooves on the side of the pads instead. You can order new brake pads online or pick some up at your local bike shop. Make sure your wheel lines up correctly in the dropouts as well, or else it won't make good contact with your brakes.",
+        "Squeeze the brake lever to see where the pads hit the rim. Both brake pads should be coming into contact with the rim of the front tire at the same time. They should be hitting the center of the rim, with an equal amount of space above and below the pad. If the pads are hitting the rim too high or low, they could come into contact with the rubber part of the tire or the spokes on the bike. Crouch down to get a good look at the brake pads as you're squeezing the brake lever. If your bike has a quick-release mechanism, check that it isn't loose or hasn't come undone. Otherwise, your brakes won't squeeze tightly on the wheel",
+        "Use an Allen wrench to loosen the bolts holding the brake pads in place. Turn the Allen wrench counterclockwise to loosen the bolts. Don’t loosen the bolts all the way or the brake pads will come out of the brake pad holder.",
+        "Move the brake pads up or down in the brake pad holder. They should easily move up and down once the bolts are loosened. If the pads were too low on the rim, move them up until they’re centered. If the pads were too high on the rim, move them down until they’re centered.",
+        "Re-tighten the brake pad bolts with the Allen wrench. Keep turning the Allen wrench clockwise until the bolts are fully tightened. Check to make sure the brake pads are centered. Readjust if needed"
+      ],
+      "content":"Check your brake pads before you make any adjustments. The brake pads are the pads that clamp down on the front tire of your bike when you pull the brake lever. If the brake pads are worn down past the line labeled “wear line,” you’ll need to replace them before you make adjustments to your brakes. If the wear lines on your brake pads aren't labeled, they should be marked by grooves on the side of the pads instead. You can order new brake pads online or pick some up at your local bike shop. Make sure your wheel lines up correctly in the dropouts as well, or else it won't make good contact with your brakes. \n Squeeze the brake lever to see where the pads hit the rim. Both brake pads should be coming into contact with the rim of the front tire at the same time. They should be hitting the center of the rim, with an equal amount of space above and below the pad. If the pads are hitting the rim too high or low, they could come into contact with the rubber part of the tire or the spokes on the bike. Crouch down to get a good look at the brake pads as you're squeezing the brake lever. If your bike has a quick-release mechanism, check that it isn't loose or hasn't come undone. Otherwise, your brakes won't squeeze tightly on the wheel \n Use an Allen wrench to loosen the bolts holding the brake pads in place. Turn the Allen wrench counterclockwise to loosen the bolts. Don’t loosen the bolts all the way or the brake pads will come out of the brake pad holder. \n Move the brake pads up or down in the brake pad holder. They should easily move up and down once the bolts are loosened. If the pads were too low on the rim, move them up until they’re centered. If the pads were too high on the rim, move them down until they’re centered. \n Re-tighten the brake pad bolts with the Allen wrench. Keep turning the Allen wrench clockwise until the bolts are fully tightened. Check to make sure the brake pads are centered. Readjust if needed"
+    },
+    {
+      "id": 2,
+      "title": "Steps to fix Flat Tire",
+      "keywords": ["Tires", "Tips"],
+      "multiline": [
+        "Here are five basic steps to fixing a flat bike tire:",
+        "Take the wheel off the bike: Release your brakes, then the wheel. (We'll show you how to remove the front and rear wheels).",
+        "Remove the tube: Deflate the tube completely and remove it by pressing on the bead (edge) of the tire or using a tire lever so you can access the tube.",
+        "Find the cause of the flat: Inspect the wheel, tire and tube for the location and causes of tears or punctures.",
+        "Patch or replace the tube: When out riding, you may prefer to replace the tube with a new one and fix the damaged one later.",
+        "Reinstall the wheel: We’ll walk you through the steps for the front and back wheel."
+      ],
+      "content": "Here are five basic steps to fixing a flat bike tire: \n Take the wheel off the bike: Release your brakes, then the wheel. (We'll show you how to remove the front and rear wheels). \n Remove the tube: Deflate the tube completely and remove it by pressing on the bead (edge) of the tire or using a tire lever so you can access the tube. \n Find the cause of the flat: Inspect the wheel, tire and tube for the location and causes of tears or punctures. \n Patch or replace the tube: When out riding, you may prefer to replace the tube with a new one and fix the damaged one later. \n Reinstall the wheel: We’ll walk you through the steps for the front and back wheel."
+    },
+    {
+      "id": 3,
+      "title": "Remove and Installing Wheel",
+      "keywords": ["Tires", "Tips"],
+      "content": "Remove Front Wheel \n When removing the front wheel, the first step is to disconnect your brake. Most brakes will have a simple mechanism that allows you to unhook the cable without any tools. If you cannot easily disconnect the cable you can always let some air out of the tire until it clears your brake pads. Now pull back on the quick release lever and with your other hand on the cap, spin the lever counter-clockwise a few times until your wheel comes free. \n Quick Release Skewer \n The lever tightens the skewer, and usually has the words ‘Close’ or ‘Open’ written on either side. \n The skewer rod runs through the hollow axle and is threaded at one end. \n The cap threads on the skewer and acts as a nut, holding your wheel in place. \n The two springs should always be facing narrow end inward, on the outside of your frame or fork. The springs are only designed to provide clearance while removing and installing your wheel. "
+    }
+  ]
+}

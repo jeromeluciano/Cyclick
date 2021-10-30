@@ -54,6 +54,7 @@ export const fetchDirections = createAsyncThunk(
         })
         .send()
         let line = lineString(directionResult.body.routes[0].geometry.coordinates)
+        console.log('fetch directions from firebase')
         return line
       }
     } catch (e) {

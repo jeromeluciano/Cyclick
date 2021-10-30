@@ -2,7 +2,9 @@ import 'expo-dev-client'
 // import './mockLocation'
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {
+  useEffect
+} from 'react';
 import { LogBox, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AuthStackScreen from './src/screens/auth-stack-screen';
@@ -19,6 +21,9 @@ import { addLocation, recalculateFeatures } from './src/features/tracks/track-sl
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { calculateDistanceFromPoints } from './src/geojson/geojson';
 import firebase from 'firebase'
+import NetInfo from '@react-native-community/netinfo'
+import { setNetworkStatus } from './src/screens/app/permission-slice';
+import { NativeBaseProvider } from 'native-base';
 
 LogBox.ignoreLogs(['Setting a timer for a long period of time'])
 LogBox.ignoreLogs(['Mapbox warning, eglSwapBuffer error: 12301'])
@@ -34,15 +39,33 @@ export default function App() {
     'Inter-Medium': require('./assets/fonts/Inter-Medium.ttf'),
   })
 
+  useEffect(() => {
+    const netInfoSub = NetInfo.addEventListener(state => {
+      if (state.isInternetReachable) {
+        store.dispatch(setNetworkStatus(true))
+      } else {
+        store.dispatch(setNetworkStatus(false))
+      }
+    })
+
+    return () => {
+      if (netInfoSub) {
+        netInfoSub()
+      }
+    }
+  }, [])
+
   return (
     <SafeAreaProvider>
-      <StoreProvider store={store}>
-        <NavigationContainer>
-          <ActionSheetProvider>
-            <RootNavigator />
-          </ActionSheetProvider>
-        </NavigationContainer>
-      </StoreProvider>
+      <NativeBaseProvider>
+        <StoreProvider store={store}>
+          <NavigationContainer>
+            <ActionSheetProvider>
+              <RootNavigator />
+            </ActionSheetProvider>
+          </NavigationContainer>
+        </StoreProvider>
+      </NativeBaseProvider>
     </SafeAreaProvider>
   );
 }

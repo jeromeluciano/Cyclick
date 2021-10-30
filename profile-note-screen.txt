@@ -1,0 +1,8 @@
+Drawer -> [
+  profile = [ feed, feedview ],
+  add missing markers,
+
+  // admin only tab
+  map request
+
+]

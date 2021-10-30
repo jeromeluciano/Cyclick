@@ -6,7 +6,9 @@ import { useSelector } from "react-redux";
 import { auth } from "../api/firebase";
 import { colors } from "../constants/colors";
 import { RootState } from "../features/store";
+import CyclingGuideStackScreen from "./cycling-guide-stack-screen";
 import NavigationStackScreen from "./navigation-stack-screen";
+import ProfileDrawerMenuScreen from "./profile-drawer-screen";
 import AccountScreen from "./tabs/account-screen";
 import CycleGuideScreen from "./tabs/cycle-guide-screen";
 import ExploreScreen from "./tabs/explore-screen";
@@ -40,10 +42,10 @@ const RootTabScreen = () => {
           display: 'none'
         }
       }}/>
-      <Tab.Screen name="guide" component={CycleGuideScreen} options={{
+      <Tab.Screen name="guide" component={CyclingGuideStackScreen} options={{
         tabBarIcon: ({ color, size }) => <Entypo name="open-book" size={size} color={color} />
       }}/>
-      <Tab.Screen name="account" component={AccountScreen} options={{
+      <Tab.Screen name="account" component={ProfileDrawerMenuScreen} options={{
         tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="account-circle" size={size} color={color} />
       }}/>
     </Tab.Navigator>

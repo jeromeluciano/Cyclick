@@ -1,0 +1,52 @@
+{
+  "data": [
+    {
+      "id": 2,
+      "title": "Give away signal",
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/cyclick-6b95d.appspot.com/o/Hand%20Signals%2FGiveAwaySignal.gif?alt=media&token=23fc91fa-01aa-4ea4-91ab-a0439dff2cab",
+      "filename": "GiveAwaySignal.gif"
+    },
+    {
+      "id": 3,
+      "title": "Left turn signal",
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/cyclick-6b95d.appspot.com/o/Hand%20Signals%2FLeftTurnSignal.gif?alt=media&token=171b0fe1-b1b2-4d71-87d8-8f952456c91a ",
+      "filename": "LeftTurnSignal.gif"
+    },
+    {
+      "id": 4,
+      "title": "Pull through signal",
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/cyclick-6b95d.appspot.com/o/Hand%20Signals%2FPullThroughSignal.gif?alt=media&token=24f9014c-3d40-4878-89dc-56a5afdd1461",
+      "filename": "PullThroughSignal.gif"
+    },
+    {
+      "id": 5,
+      "title": "Sign for a turn",
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/cyclick-6b95d.appspot.com/o/Hand%20Signals%2FSignForATurn.gif?alt=media&token=c6878234-4df8-4863-81de-3c687ff2f0de",
+      "filename": "SignForATurn.gif"
+    },
+    {
+      "id": 6,
+      "title": "Sign for overtaking",
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/cyclick-6b95d.appspot.com/o/Hand%20Signals%2FSignForOvertaking.gif?alt=media&token=4da40dac-e6bd-43b3-bba1-b58bd77a11ff",
+      "filename": "SignForOvertaking.gif"
+    },
+    {
+      "id": 7,
+      "title": "Sign for pointing out hazards",
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/cyclick-6b95d.appspot.com/o/Hand%20Signals%2FSignForPointingOutHazards.gif?alt=media&token=7a291975-3a55-4d6b-abc1-e6d22a9dc402",
+      "filename": "SignForPointingOutHazards.gif"
+    },
+    {
+      "id": 8,
+      "title": "Sign for slowing down",
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/cyclick-6b95d.appspot.com/o/Hand%20Signals%2FSignForSlowingDown.gif?alt=media&token=8fd05fa2-f346-465f-90ea-9d8d537dea47",
+      "filename": "SignForSlowingDown.gif"
+    },
+    {
+      "id": 9,
+      "title": "Sign for stopping",
+      "image_url": "https://firebasestorage.googleapis.com/v0/b/cyclick-6b95d.appspot.com/o/Hand%20Signals%2FSignForStopping.gif?alt=media&token=e93f970e-bb34-4619-99c8-4e0133da8739",
+      "filename": "SignForStopping.gif"
+    }
+  ]
+}

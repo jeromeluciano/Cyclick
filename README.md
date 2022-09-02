@@ -38,7 +38,7 @@
 
 **Track Recording**
 
-![Uploading track_recording_screen.png…]()
+![track_recording_screen](https://user-images.githubusercontent.com/44360980/188177790-fcab04b9-e284-4993-affc-707876f58a0a.png)
 
 ![track_recording_screen_menu](https://user-images.githubusercontent.com/44360980/188177189-ecbb4f95-f1b9-458a-b516-e125b5927860.png)
 

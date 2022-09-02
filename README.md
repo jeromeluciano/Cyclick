@@ -10,8 +10,8 @@
 **Forgot Password**
 ![forgot](https://user-images.githubusercontent.com/44360980/188175965-da849c29-cb23-475b-875a-b7b15911c760.png)
 
-**Home Screen**!
-[home](https://user-images.githubusercontent.com/44360980/188176022-b207cfeb-a966-40d5-b7ec-960b94189fad.png)
+**Home Screen**
+![home](https://user-images.githubusercontent.com/44360980/188176022-b207cfeb-a966-40d5-b7ec-960b94189fad.png)
 
 **Map Navigation Point A to Point B path**
 ![navigate_pin](https://user-images.githubusercontent.com/44360980/188176270-a8423d27-3403-4878-a967-74c9e49048f9.png)
@@ -29,8 +29,8 @@
 **Bike lane path form**
 ![bike_lane_path_form](https://user-images.githubusercontent.com/44360980/188176784-ff2a1507-727c-4bf9-8568-0992032c4046.png)
 
-**Track Recording**!
-[Uploading track_recording_screen.png…]()
+**Track Recording**
+![Uploading track_recording_screen.png…]()
 
 ![track_recording_screen_menu](https://user-images.githubusercontent.com/44360980/188177189-ecbb4f95-f1b9-458a-b516-e125b5927860.png)
 
